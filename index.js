@@ -1,12 +1,17 @@
 
 // Récupération des modules
-// const moduleRecette = require('./recipe.js')
+// const { verifyAccessToken } = require('./helpers/jwt_helper.js')
+//const recipesModule = require('./helpers/recipes.js')
+
+// const verifyAccessToken = require('./helpers/jwt_helper.js')
+
 
 const bcrypt = require('bcrypt')
 const express = require('express')
 const axios = require('axios')
 const app = express()
-const PORT = process.env.PORT || 5000 // this is very important
+
+require('dotenv').config() // Fichier .env
 
 // JWT
 const jwt = require('jsonwebtoken')
@@ -60,26 +65,19 @@ const axiosCli=axios.create({
     baseURL: 'https://tpnote-017c.restdb.io/rest/',
     headers:
     { 'cache-control': 'no-cache',
-        'x-apikey': '071bbf24ada5ce19c7ba1bf445b7e0dcef75f' }});
+        'x-apikey': '071bbf24ada5ce19c7ba1bf445b7e0dcef75f' 
+    }
+});
 
 
 
 
 
 /* Le port */
-app.listen(PORT, function () {
-    console.log('app listening on port ' + PORT)
+app.listen(process.env.PORT, function () {
+    console.log('app listening on port ' + process.env.PORT)
 })
 
-app.get('/Connexion', function (req, res) {
-
-    res.send('Page de connexion')
-})
-
-app.get('/CreateLogin', function (req, res) {
-
-    res.send('Page pour créer un compte')
-})
 
 /* Récupère toutes les recettes */
 // ce trouve mtn dans recipe.js
@@ -88,8 +86,9 @@ app.get('/CreateLogin', function (req, res) {
 
 app.get('/AllRecipes', async function(req, res) {
 
-const fetchR1 = await axiosCli.get('recette').then(result=>{return result.data});
-res.json(fetchR1);
+    const fetchR1 = await axiosCli.get('recette').then(result=>{return result.data});
+    res.json(fetchR1);
+    // recipesModule.allRecipes
 })
 
   
@@ -194,10 +193,13 @@ app.post('/Register', async function(req, res) {
 //     })
 // }
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
    
-    res.send(req.userToken)
+    res.send('Hello')
+   // res.send(req.headers['authorization'])
 })
+
+
 
 /* Authentification d'un utilisateur
 *
@@ -229,10 +231,9 @@ app.post('/Login', async function(req, res) {
     }
 
     
-    const userJwt = jwt.sign({ email: user.email }, private)
-    res.send(userJwt)
+    const userJwt = jwt.sign({ email: user.email }, secret)
 
-    // res.json({ jwt: userJwt })
+    res.json({ jwt: userJwt })
 })
 
 
