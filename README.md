@@ -15,7 +15,7 @@
 > Pour installer le projet, ou télécharger son contenu en *.zip*
 
 > Il faut maintenant installer **node js** sur la machine, pour cela, se rendre à l'adresse suivante et télécharger la version qui convient :
->``` [enter link description here](https://nodejs.org/en/download/) ```
+> [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 
 > Ouvrir ensuite un terminal à l'emplacement des fichiers et exécuter les commandes suivantes pour télécharger et installer les modules :
 ```
@@ -32,10 +32,10 @@ npm install passport-jwt --save
 ### Vue js
 
 > Le vue js est disponible sur **code sandbox** à l'adresse suivante :
-> ``` [enter link description here](https://codesandbox.io/s/apprecipe-6ji1h) ```
+> [https://codesandbox.io/s/apprecipe-6ji1h](https://codesandbox.io/s/apprecipe-6ji1h) 
 
->Cependant, aucune installation n'est nécessaire et l'application est déjà prête en se rendant à l'adresse de l'API : 
->``` [enter link description here](https://6ji1h.csb.app/#/) ```  
+> Cependant, aucune installation n'est nécessaire et l'application est déjà prête en se rendant à l'adresse de l'API : 
+> [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)`  
 
 Ce projet a été réalisé par Enzo Abjean et Axel Bonnefous.
 
