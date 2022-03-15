@@ -4,8 +4,11 @@
 > L'API est disponible à l'adresse suivante :
 > [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
 
-> Le node js est déployé sur heroku à l'adresse suivante :
+> Le **node js** est déployé sur heroku à l'adresse suivante :
 > [https://app-recipe-apidae.herokuapp.com/](https://app-recipe-apidae.herokuapp.com/)
+
+> Le code source du **vue js** est disponible sur **code sandbox** à l'adresse suivante :
+> [https://codesandbox.io/s/apprecipe-6ji1h](https://codesandbox.io/s/apprecipe-6ji1h) 
 
 ## Installation du projet
 ### Node js
