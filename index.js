@@ -54,6 +54,21 @@ passport.use(
     })
   )
 
+/* Split la chaine de caractere reçue 
+* exemple : "Bearer dezfqrsefeefs.fgtersgqersf.derqgserqdgeq"
+*   => return "dezfqrsefeefs.fgtersgqersf.derqgserqdgeq"
+*/
+const exctractToken = (token) => {
+    return token.split(' ')[1] || null;
+}
+
+/* Prend le token et sort les données du jwt
+*
+*/
+const exctractTokenData = (token) => {
+    return jwt.decode(exctractToken(token));
+}
+
 const axiosCli=axios.create({
     baseURL: 'https://tpnote-017c.restdb.io/rest/',
     headers:
@@ -62,40 +77,39 @@ const axiosCli=axios.create({
     }
 });
 
+/* Lancement de l'application
+*
+*/
 app.listen(process.env.PORT, function () {
     console.log('app listening on port ' + process.env.PORT)
 })
 
+/******************************
+* Opérations sur les reqûetes *
+******************************/
 app.get('/AllRecipes', async function(req, res) {
 
     const fetchR1 = await axiosCli.get('recette').then(result=>{return result.data});
     res.json(fetchR1);
 })
  
-/* Récupère une recette en fonction de l'id passé en paramètre */
+/* Récupère une recette en fonction de l'id passé en paramètre
+*
+*/
 app.get('/OneRecipe/:id', async function(req, res) {
 
     const fetchR1 = await axiosCli.get('recette/'+req.params.id).then(result=>{return result.data})
     res.json(fetchR1);
 })
 
-// split la chaine de caractere ex : "Bearer dezfqrsefeefs"
-const exctractToken = (token) => {
-    return token.split(' ')[1] || null;
-}
-
-// Prend le token et sort les données du jwt
-const exctractTokenData = (token) => {
-    return jwt.decode(exctractToken(token));
-}
-
-/* Insère une recette */
+/* Créer une recette 
+* Route portégé par le token
+*/
 app.post('/AddRecipe', passport.authenticate('jwt', { session: false }), async function(req, res) {
 
-    /* New recipe */
-    // Spread operator
-    // Concatenation du body de la recette avec la clé owner
-    const recipe = {...req.body, ...{owner: exctractTokenData(req.headers.authorization).email}}
+    
+    // Concatenation du body de la recette avec la clé owner et sa valeur
+    const recipe = {...req.body, ...{owner: exctractTokenData(req.headers.authorization).email}} // Spread operator
 
     try{
         const fetchR1 = await axiosCli.post('recette', recipe)
@@ -107,8 +121,10 @@ app.post('/AddRecipe', passport.authenticate('jwt', { session: false }), async f
     }
 })
 
-/* Supprime une recette en fonction de l'id passé en paramètre */
-app.delete('/DeleteRecipe/:id', async function(req, res) {
+/* Supprime une recette en fonction de l'id passé en paramètre 
+* Route portégé par le token
+*/
+app.delete('/DeleteRecipe/:id', passport.authenticate('jwt', { session: false }), async function(req, res) {
 
     try{
         const fetchR2 = await axiosCli.delete('recette/'+req.params.id).then(result=>{return result.data})
@@ -120,8 +136,9 @@ app.delete('/DeleteRecipe/:id', async function(req, res) {
     }
 })
 
-/* Modifie une recette en fonction de l'id passé en paramètre */
-// route portégé par le token
+/* Modifie une recette en fonction de l'id passé en paramètre
+* Route portégé par le token
+*/
 app.put('/UpdateRecipe/:id', passport.authenticate('jwt', { session: false }), async function(req, res) {
 
     // On recup la recette en fonction d'un id
@@ -147,7 +164,9 @@ app.put('/UpdateRecipe/:id', passport.authenticate('jwt', { session: false }), a
     }
 })
 
-// ------------------------- LOGIN ------------------------- //
+/**************************
+* Opérations sur le login *
+**************************/
 
 /* Création d'un compte
 *
