@@ -2,7 +2,6 @@
 # appRecipe
 
 > L'API est disponible à l'adresse suivante :
-
 > [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
 
 > Le node js est déployé sur heroku à l'adresse suivante :
