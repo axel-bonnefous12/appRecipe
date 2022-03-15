@@ -48,15 +48,21 @@ app.use(function(req, res, next){
     cors()
 )
 
+
+// middleware
 passport.use(
-    new JwtStrategy(jwtOptions, function(payload, next) {
-      const user = users.find(user => user.email === payload.email)
+    new JwtStrategy(jwtOptions, async function(payload, next) {
+        
+        // On récupère les comptes
+        const fetchR1 = await axiosCli.get('comptes').then(result=>{return result.data});
+        const user = fetchR1.find(user => user.email === payload.email)
   
-      if (user) {
-        next(null, user)
-      } else {
-        next(null, false)
-      }
+        // 
+        if (user) {
+            next(null, user)
+        } else {
+            next(null, false)
+        }
     })
   )
 
@@ -70,28 +76,18 @@ const axiosCli=axios.create({
 });
 
 
-
-
-
 /* Le port */
 app.listen(process.env.PORT, function () {
     console.log('app listening on port ' + process.env.PORT)
 })
 
 
-/* Récupère toutes les recettes */
-// ce trouve mtn dans recipe.js
-// moduleRecette.allRecipes()
-
-
 app.get('/AllRecipes', async function(req, res) {
 
     const fetchR1 = await axiosCli.get('recette').then(result=>{return result.data});
     res.json(fetchR1);
-    // recipesModule.allRecipes
 })
-
-  
+ 
 /* Récupère une recette en fonction de l'id passé en paramètre */
 app.get('/OneRecipe/:id', async function(req, res) {
 
@@ -99,13 +95,23 @@ app.get('/OneRecipe/:id', async function(req, res) {
     res.json(fetchR1);
 })
 
+// split la chaine de caractere ex : "Bearer dezfqrsefeefs"
+const exctractToken = (token) => {
+    return token.split(' ')[1] || null;
+}
+
+// Prend le token et sort les données du jwt
+const exctractTokenData = (token) => {
+    return jwt.decode(exctractToken(token));
+}
+
 /* Insère une recette */
-app.post('/AddRecipe', async function(req, res) {
+app.post('/AddRecipe', passport.authenticate('jwt', { session: false }), async function(req, res) {
 
     /* New recipe */
-    const recipe = req.body
-
-    console.log(req.body)
+    // Spread operator
+    // Concatenation du body de la recette avec la clé owner
+    const recipe = {...req.body, ...{owner: exctractTokenData(req.headers.authorization).email}}
 
     try{
         const fetchR1 = await axiosCli.post('recette', recipe)
@@ -131,7 +137,19 @@ app.delete('/DeleteRecipe/:id', async function(req, res) {
 })
 
 /* Modifie une recette en fonction de l'id passé en paramètre */
-app.put('/UpdateRecipe/:id', async function(req, res) {
+// route portégé par le token
+app.put('/UpdateRecipe/:id', passport.authenticate('jwt', { session: false }), async function(req, res) {
+
+    // On recup la recette en fonction d'un id
+    const fetchR1 = await axiosCli.get('recette/'+req.params.id).then(result=>{return result.data})
+
+    // données du token
+    const tokenData = exctractTokenData(req.headers.authorization)
+
+    // Si le proprietaire du token et le proprietaire de la recette
+    if(fetchR1.owner !== tokenData.email){
+        res.status(401).send('Unauthorized')
+    }
 
     /* New recipe */
     const recipe = req.body
@@ -139,26 +157,13 @@ app.put('/UpdateRecipe/:id', async function(req, res) {
     try{
         const fetchR2 = await axiosCli.put('recette/' + req.params.id, recipe).then(result=>{return result.data})
         res.json({result:'ok'});
-        console.log(recipe);
-
     }
     catch (e){
         res.json({error: e.message})
     }
 })
 
-
 // ------------------------- LOGIN ------------------------- //
-
-app.get('/public', (req, res) => {
-
-    res.send('public')
-})
-
-app.get('/private', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-    res.send('private. user:' + req.user.email)
-})
 
 /* Création d'un compte
 *
@@ -178,27 +183,11 @@ app.post('/Register', async function(req, res) {
     }
 })
 
-// middleware pour valider le token
-// function jwtGuard(req, res, next){
-
-//     const idToken = req.headers.authorization
-
-//     jwt.verify(idToken, publicKey, (err, decoded) => {
-//         if(err) {
-//             res.status(401).send('Unauthorized')
-//         } else {
-//             req.userToken = decoded;
-//             next();
-//         }
-//     })
-// }
-
 app.get('/', async (req, res) => {
    
     res.send('Hello')
    // res.send(req.headers['authorization'])
 })
-
 
 
 /* Authentification d'un utilisateur
@@ -217,20 +206,14 @@ app.post('/Login', async function(req, res) {
     // Requete : tous les comptes de la bdd
     const fetchR1 = await axiosCli.get('comptes').then(result=>{return result.data});
 
-    //console.log(fetchR1.email + " / " + fetchR1.password)
-    console.log(fetchR1)
-
     // On cherche l'objet fetchR1 qui correspond aux données du formulaire
     const user = fetchR1.find(user => user.email === email)
-
-    console.log(user)
 
     if (!user || user.password !== password) {
         res.status(401).json({ error: 'Email / password do not match.' })
         return
     }
 
-    
     const userJwt = jwt.sign({ email: user.email }, secret)
 
     res.json({ jwt: userJwt })
