@@ -1,12 +1,3 @@
-
-// Récupération des modules
-// const { verifyAccessToken } = require('./helpers/jwt_helper.js')
-//const recipesModule = require('./helpers/recipes.js')
-
-// const verifyAccessToken = require('./helpers/jwt_helper.js')
-
-
-const bcrypt = require('bcrypt')
 const express = require('express')
 const axios = require('axios')
 const app = express()
@@ -27,8 +18,6 @@ const jwtOptions = {
     secretOrKey: secret
   }
 
-//console.log(`The result is ${jwt.sum(1, 3)}`)
-
 /* ---  middleware json ---
 * méthodes/fonctions/opérations qui sont appelées entre le traitement de la requête 
 * et l'envoi de la réponse dans la méthode d'application.
@@ -48,7 +37,6 @@ app.use(function(req, res, next){
     cors()
 )
 
-
 // middleware
 passport.use(
     new JwtStrategy(jwtOptions, async function(payload, next) {
@@ -66,7 +54,6 @@ passport.use(
     })
   )
 
-
 const axiosCli=axios.create({
     baseURL: 'https://tpnote-017c.restdb.io/rest/',
     headers:
@@ -75,12 +62,9 @@ const axiosCli=axios.create({
     }
 });
 
-
-/* Le port */
 app.listen(process.env.PORT, function () {
     console.log('app listening on port ' + process.env.PORT)
 })
-
 
 app.get('/AllRecipes', async function(req, res) {
 
@@ -182,13 +166,6 @@ app.post('/Register', async function(req, res) {
         res.json({error: e.message})
     }
 })
-
-app.get('/', async (req, res) => {
-   
-    res.send('Hello')
-   // res.send(req.headers['authorization'])
-})
-
 
 /* Authentification d'un utilisateur
 *
