@@ -2,9 +2,9 @@
 # appRecipe
 
 > L'API est disponible à l'adresse suivante :
-```
-[https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
-```
+
+> [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
+
 > Le node js est déployé sur heroku à l'adresse suivante :
 ```
 [enter link description here](%5Benter%20link%20description%20here%5D%28https://app-recipe-apidae.herokuapp.com%29)
