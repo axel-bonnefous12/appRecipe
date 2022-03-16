@@ -6,9 +6,10 @@
 
 > Le node js est déployé sur heroku à l'adresse suivante : [https://app-recipe-apidae.herokuapp.com](https://app-recipe-apidae.herokuapp.com)
 
-> Le code source du vue est disponible sur code sandbox([vue](https://codesandbox.io/s/apprecipe-6ji1h))
-> et sur le repository suivant : [https://github.com/axel-bonnefous12/appRecipe-Vue](https://github.com/axel-bonnefous12/appRecipe-Vue)
+> Le code source du vue est disponible 
 
+ 1. Sur code sandbox ([vue js](https://codesandbox.io/s/apprecipe-6ji1h))
+ 2. Sur le repository suivant : [https://github.com/axel-bonnefous12/appRecipe-Vue](https://github.com/axel-bonnefous12/appRecipe-Vue)
 
 ## Installation du projet
 ### Node js
