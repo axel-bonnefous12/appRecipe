@@ -31,10 +31,10 @@ npm install passport-jwt --save
 ### Vue js
 
 > Le vue js est disponible sur **code sandbox** à l'adresse suivante :
-> ``` [https://codesandbox.io/s/apprecipe-6ji1h](https://codesandbox.io/s/apprecipe-6ji1h) ```
+> [https://codesandbox.io/s/apprecipe-6ji1h](https://codesandbox.io/s/apprecipe-6ji1h)
 
->Cependant, aucune installation n'est nécessaire et l'application est déjà prête en se rendant à l'adresse de l'API : 
->``` [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/) ```  
+> Cependant, aucune installation n'est nécessaire et l'application est déjà prête en se rendant à l'adresse de l'API : 
+> [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
 
 
 ### Parties manquantes 
