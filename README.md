@@ -1,14 +1,11 @@
 
 # appRecipe
 
-> L'API est disponible à l'adresse suivante :
+> L'API est disponible à l'adresse suivante : [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
 
-[https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
 
-> Le node js est déployé sur heroku à l'adresse suivante :
-```
-[https://app-recipe-apidae.herokuapp.com](https://app-recipe-apidae.herokuapp.com)
-```
+> Le node js est déployé sur heroku à l'adresse suivante : [https://app-recipe-apidae.herokuapp.com](https://app-recipe-apidae.herokuapp.com)
+
 ## Installation du projet
 ### Node js
 > Pour installer le projet, cloner le repository
@@ -16,8 +13,8 @@
 
 > Pour installer le projet, ou télécharger son contenu en *.zip*
 
-> Il faut maintenant installer **node js** sur la machine, pour cela, se rendre à l'adresse suivante et télécharger la version qui convient :
->``` [https://nodejs.org/en/download/](https://nodejs.org/en/download/) ```
+> Il faut maintenant installer **node js** sur la machine, pour cela, se rendre à l'adresse suivante et télécharger la version qui convient : 
+> [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
 
 > Ouvrir ensuite un terminal à l'emplacement des fichiers et exécuter les commandes suivantes pour télécharger et installer les modules :
 ```
