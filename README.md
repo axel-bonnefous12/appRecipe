@@ -1,7 +1,7 @@
 
 # appRecipe
 
-> L'API est disponible à l'adresse suivante : [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
+> L'API est disponible à l'adresse suivante : [https://gallant-curie-a4d92a.netlify.app/#/](https://gallant-curie-a4d92a.netlify.app/#/)
 
 
 > Le node js est déployé sur heroku à l'adresse suivante : [https://app-recipe-apidae.herokuapp.com](https://app-recipe-apidae.herokuapp.com)
