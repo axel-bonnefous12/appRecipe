@@ -25,7 +25,7 @@ const jwtOptions = {
 
 app.use(function(req, res, next){
 
-    res.header('Access-Control-Allow-Origin', 'https://6ji1h.csb.app')
+    res.header('Access-Control-Allow-Origin', 'https://gallant-curie-a4d92a.netlify.app/#/')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     res.header('Access-Control-Allow-Headers', 'Content-Type')
     next();
