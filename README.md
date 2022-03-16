@@ -2,10 +2,9 @@
 # appRecipe
 
 > L'API est disponible à l'adresse suivante :
-```
-[terre-equestre.fr](https://terre-equestre.fr/cheval/)
+
 [https://6ji1h.csb.app/#/](https://6ji1h.csb.app/#/)
-```
+
 > Le node js est déployé sur heroku à l'adresse suivante :
 ```
 [https://app-recipe-apidae.herokuapp.com](https://app-recipe-apidae.herokuapp.com)
